@@ -7,7 +7,9 @@ const loadPages = () => {
 };
 
 const treeBox = (id) => {
-  const url = `https://openapi.programming-hero.com/api/plants/${id}`;
+  //console.log(id);
+
+  const url = `https://openapi.programming-hero.com/api/category/${id}`;
   console.log(url);
   fetch(url)
     .then((res) => res.json())
@@ -15,35 +17,34 @@ const treeBox = (id) => {
 };
 
 const displayTreeBox = (trees) => {
-  const optionContainer = document.getElementById("option-container");
-  optionContainer.innerHTML = "";
-  console.log(optionContainer);
+  const optionContain = document.getElementById("option-contain");
+  optionContain.innerHTML = "";
+  console.log(optionContain);
 
   trees.forEach((tree) => {
     const allPlants = document.createElement("div");
     allPlants.innerHTML = `
     <div class="card bg-base-100  m-4 shadow-sm">
               <figure class="px-10 pt-10">
-                <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp" alt="Shoes"
+                <img src="${tree.image}"
                   class="rounded-xl" />
               </figure>
               <div class="card-body">
-                <h2 class="card-title">Mango Tree</h2>
-                <p>A fast-growing tropical tree that produces delicious, juicy mangoes during summer. Its dense green
+                <h2 class="card-title">${tree.name}</h2>
+                <p class="py-2">${tree.description}
                 </p>
-                <div class="flex justify-items-center">
-                  <p class="bg-green-200 inline-block px-2 rounded">Fruit Tree</p>
-                  <span>৳500</span>
+                <div class="flex gap-10">
+                  <p class="bg-green-200 rounded w-[20px]">${tree.category}</p>
+                  <p> <img class="w-5 inline items-center" src="assets/bangladeshi-taka-sign-solid-full.svg" alt="">${tree.price}</p>
                 </div>
                 <div class="card-actions">
-                  <button class="btn btn-primary w-full">Buy Now</button>
+                  <button class="btn w-full bg-green-600 rounded-2xl">Add to Cart</button>
                 </div>
               </div>
-            </div>
-          `;
-    optionContainer.append(allPlants);
+            </div>`;
+    optionContain.append(allPlants);
   });
-}
+};
 
 const displayAllTree = (trees) => {
   const allTreeContainer = document.getElementById("option-container");
@@ -52,7 +53,7 @@ const displayAllTree = (trees) => {
 
   for (let tree of trees) {
     const allTree = document.createElement("div");
-    allTree.innerHTML = `<button onclick="treeBox('${tree.category_name}')" class="hover:bg-green-600 hover:text-white w-full p-4 rounded-[4px]">${tree.category_name}</button>`;
+    allTree.innerHTML = `<button onclick="treeBox('${tree.id}')" class="hover:bg-green-600 hover:text-white w-full p-4 rounded-[4px]">${tree.category_name}</button>`;
 
     allTreeContainer.append(allTree);
   }
