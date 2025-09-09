@@ -1,0 +1,21 @@
+
+
+#### 1) What is the difference between var, let, and const?
+Answer- var ফাংশন scoped, redeclare করা যায় কিন্তু কিছু ব্যবহার জামেলা আছে।
+let block scoped, redeclare করা যায় না কিন্তু value পরিবর্তন করা যায়।
+const block scoped, redeclare বা reassign কোনটাই করা যায় না।
+
+#### 2) What is the difference between map(), forEach(), and filter()?
+Answer- map() নতুন অ্যারে রিটার্ন করে প্রতিটি element ট্রান্সফর্ম করে।
+forEach() শুধু লুপ চালায়, কিছু return করে না।
+filter() শর্ত অনুযায়ী element রেখে নতুন অ্যারে রিটার্ন করে।
+
+#### 3) What are arrow functions in ES6?
+Answer- Arrow function হলো ছোট syntax এ function লেখার পদ্ধতি। এটা this কে surrounding context থেকে ধরে রাখে, আর কোড concise হয়।
+
+#### 4) How does destructuring assignment work in ES6?
+Answer- Destructuring assignment দিয়ে object বা array থেকে সরাসরি value আলাদা ভ্যারিয়েবলে রাখা যায়।
+
+#### 5) Explain template literals in ES6. How are they different from string concatenation?
+Answer- Template literals backtick (`) দিয়ে লেখা হয়। এতে ${} ব্যবহার করে variable বা expression বসানো যায়, আর multi-line string লেখা সহজ হয়।
+Concatenation এ + ব্যবহার করতে হয়, template literals এ লাগে না।
