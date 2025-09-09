@@ -6,19 +6,6 @@ const loadPages = () => {
     .then((data) => displayAllTree(data.categories));
 };
 
-// const manageSpinner = (status) => {
-//   console.log(status);
-//   // console.log(document.getElementById("spinner"));
-//   if  (status == true) {
-//     document.getElementById("option-contain").classList.remove("hidden");
-//     document.getElementById("option-contain").classList.add("hidden");
-//   } else {
-//     document.getElementById("option-contain").classList.remove("hidden");
-//     document.getElementById("option-contain").classList.add("hidden");
-//   }
-// };
-
-
 
 const removeActive = () => {
   const treeBtn = document.querySelectorAll(".tree-btn");
@@ -121,15 +108,13 @@ const displayAllTree = (trees) => {
   }
 
 };
-
-loadPages();
 let cart = [];
 
 // add to cart
 const addToCart = (tree) => {
   
-  let card = cart.find(item => item.id === tree.id);
-  if (card) {
+  let existing = cart.find(item => item.id === tree.id);
+  if (existing) {
     existing.quantity += 1;
   } else {
     cart.push({...tree, quantity: 1});
@@ -176,3 +161,5 @@ const updateCart = () => {
   `;
   cartContainer.appendChild(totalDiv);
 };
+
+loadPages();
