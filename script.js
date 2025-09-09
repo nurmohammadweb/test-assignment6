@@ -6,21 +6,19 @@ const loadPages = () => {
     .then((data) => displayAllTree(data.categories));
 };
 
-const manageSpinner = (status) => {
-  if (status == true) {
-    document.getElementById("spinner").classList.remove("hidden");
-    document.getElementById("option-container").classList.add("hidden");
-  } else {
-    document.getElementById("option-contain").classList.remove("hidden");
-    document.getElementById("spinner").classList.add("hidden");
-  }
-};
+// const manageSpinner = (status) => {
+//   console.log(status);
+//   // console.log(document.getElementById("spinner"));
+//   if  (status == true) {
+//     document.getElementById("option-contain").classList.remove("hidden");
+//     document.getElementById("option-contain").classList.add("hidden");
+//   } else {
+//     document.getElementById("option-contain").classList.remove("hidden");
+//     document.getElementById("option-contain").classList.add("hidden");
+//   }
+// };
 
-const removeAll = () => {
-  const allBtn = document.querySelectorAll(".all-btn");
-  // console.log("allBtn");
-   allBtn.forEach(btn => btn.classList.remove("active"));
-};
+
 
 const removeActive = () => {
   const treeBtn = document.querySelectorAll(".tree-btn");
@@ -59,7 +57,6 @@ const allDeteils = (tree) => {
 
 const treeBox = (id) => {
   //console.log(id);
-    manageSpinner(true);
   const url = `https://openapi.programming-hero.com/api/category/${id}`;
   console.log(url);
   fetch(url)
@@ -75,87 +72,39 @@ const treeBox = (id) => {
   
 };
 
-const allPlantTree = (id) => {
-  const plant = `https://openapi.programming-hero.com/api/plants`;
-  console.log(id);
-  fetch(plant)
-    .then((res) => res.json())
-    .then((plant) => {
-      removeAll();
-      const highlight = document.getElementById(`all-highlights-${id}`);
-      //console.log(highlight);
-      highlight.classList.add("active");
-      displayPlantsTree(plant.plants)
-    });  
-};
-
-const displayPlantsTree = (alls) => {
-  const allBtn = document.getElementById("option-contain");
-  allBtn.innerHTML = "";
-  alls.forEach((all) => {
-    const treePlant = document.createElement("div");
-    treePlant.innerHTML = `
-    <div class="card bg-base-100  m-4 shadow-sm">
-              <figure class="px-10 pt-10">
-                <img src="${all.image}"
-                  class="rounded-xl" />
-              </figure>
-              <div class="card-body">
-                <h2 class="card-title">${all.name}</h2>
-                <p class="py-2">${all.description}
-                </p>
-                <div class="flex gap-10">
-                  <p class="bg-green-200 rounded w-[20px]">${all.category}</p>
-                  <p> <img class="w-5 inline items-center" src="assets/bangladeshi-taka-sign-solid-full.svg" alt="">${all.price}</p>
-                </div>
-                <div class="card-actions">
-                  <button class="btn w-full bg-green-600 rounded-2xl">Add to Cart</button>
-                </div>
-              </div>
-            </div>`;
-
-    allBtn.append(treePlant);
-  
-  });
-
-};
-allPlantTree();
-
-
 const displayTreeBox = (trees) => {
- 
   const optionContain = document.getElementById("option-contain");
   optionContain.innerHTML = "";
-  console.log(optionContain);
 
   trees.forEach((tree) => {
-      
     const allPlants = document.createElement("div");
     allPlants.innerHTML = `
-    <div class="card bg-base-100  m-4 shadow-sm">
-              <figure class="px-10 pt-10">
-                <img src="${tree.image}"
-                  class="rounded-xl" />
-              </figure>
-              <div class="card-body">
-                <h2 onclick="treeAllDetail(${tree.id})" class="card-title">${tree.name}</h2>
-                <p class="py-2">${tree.description}
-                </p>
-                <div class="flex gap-10">
-                  <p class="bg-green-200 rounded w-[20px]">${tree.category}</p>
-                  <p> <img class="w-5 inline items-center" src="assets/bangladeshi-taka-sign-solid-full.svg" alt="">${tree.price}</p>
-                </div>
-                <div class="card-actions">
-                  <button class="btn w-full bg-green-600 rounded-2xl">Add to Cart</button>
-                </div>
-              </div>
-            </div>`;
+      <div class="card bg-base-100 m-4 shadow-sm">
+        <figure class="px-10 pt-10">
+          <img src="${tree.image}" class="rounded-xl" />
+        </figure>
+        <div class="card-body">
+          <h2 onclick="treeAllDetail(${tree.id})" class="card-title">${tree.name}</h2>
+          <p class="py-2">${tree.description}</p>
+          <div class="flex gap-10">
+            <p class="bg-green-200 rounded w-[20px]">${tree.category}</p>
+            <p>
+              <img class="w-5 inline items-center" src="assets/bangladeshi-taka-sign-solid-full.svg" alt="">
+              ${tree.price}
+            </p>
+          </div>
+          <div class="card-actions">
+            <button onclick='addToCart(${JSON.stringify(tree)})' 
+                 class="btn w-full bg-green-600 rounded-2xl">
+               Add to Cart
+             </button>
+
+          </div>
+        </div>
+      </div>`;
     optionContain.append(allPlants);
-    
   });
- manageSpinner(false);
- 
-  
+
 };
 
 const displayAllTree = (trees) => {
@@ -174,3 +123,56 @@ const displayAllTree = (trees) => {
 };
 
 loadPages();
+let cart = [];
+
+// add to cart
+const addToCart = (tree) => {
+  
+  let card = cart.find(item => item.id === tree.id);
+  if (card) {
+    existing.quantity += 1;
+  } else {
+    cart.push({...tree, quantity: 1});
+  }
+  updateCart();
+};
+
+// remove cart
+const removeFromCart = (id) => {
+  cart = cart.filter(item => item.id !== id);
+  updateCart();
+};
+
+
+const updateCart = () => {
+  const cartContainer = document.getElementById("cart-container");
+  cartContainer.innerHTML = `<h3 class="font-bold text-[16px] text-center">Your Cart</h3>`;
+
+  let total = 0;
+
+  cart.forEach(item => {
+    total += item.price * item.quantity;
+
+    const cartItem = document.createElement("div");
+    cartItem.classList.add("flex", "justify-between", "items-center", "bg-green-50", "p-2", "m-2", "rounded");
+
+    cartItem.innerHTML = `
+      <div>
+        <h4 class="font-bold text-sm">${item.name}</h4>
+        <p class="text-sm">৳${item.price} × ${item.quantity}</p>
+      </div>
+      <button onclick="removeFromCart(${item.id})" class="text-red-600 font-bold">×</button>
+    `;
+
+    cartContainer.appendChild(cartItem);
+  });
+
+  // total price
+  const totalDiv = document.createElement("div");
+  totalDiv.classList.add("flex", "justify-between", "p-2", "border-t");
+  totalDiv.innerHTML = `
+    <h4 class="font-bold">Total:</h4>
+    <p class="font-bold">৳${total}</p>
+  `;
+  cartContainer.appendChild(totalDiv);
+};

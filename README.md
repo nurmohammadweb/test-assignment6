@@ -100,7 +100,8 @@ https://openapi.programming-hero.com/api/plant/1
 1) Category Loading ✅✅✅
 Load Tree Categories dynamically on the left side.
 
-2) Category Click → Tree Data ❌❌❌
+2) Category Click → Tree Data ✅✅✅
+ Each card includes:
 On clicking a category: load trees of that category.
 
 Display in a 3-column card layout.
