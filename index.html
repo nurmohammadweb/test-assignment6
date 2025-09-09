@@ -17,7 +17,7 @@
         <h4 class="text-white text-[20px] font-bold">Green Earth</h4>
       </div>
       <div>
-        <ul class="flex justify-center items-center gap-5">
+        <ul class="invisible md:visible flex justify-center items-center gap-5">
           <li class="text-white"><a class="hover:underline hover:text-lime-50" href="">About</a></li>
           <li class="text-white"><a class="hover:underline hover:text-lime-50" href="">Gallery</a></li>
           <li class="text-white"><a class="hover:underline hover:text-lime-50" href="">Plant a Tree</a></li>
@@ -30,13 +30,13 @@
 
     <section class="bg-[#CFF0DC] ">
       <div class="grid grid-cols-3 justify-items-center items-center w-11/12 mx-auto">
-        <img src="assets/hero-leaf1.png" alt="">
-        <div class="text-center py-5 space-y-2">
+        <img class="invisible md:visible" src="assets/hero-leaf1.png" alt="">
+        <div class="text-center py-5 space-y-2 sm:w-full">
           <h1 class="font-bold text-[32px]">Plant a Tree, Grow a Future</h1>
           <p>Join our mission to plant 1 million trees and make the Earth greener for future generations.</p>
           <button class="btn btn-warning">Get Involved</button>
         </div>
-        <img src="assets/hero-leaf2.png" alt="">
+        <img class="invisible md:visible" src="assets/hero-leaf2.png" alt="">
       </div>
     </section>
 
@@ -44,7 +44,7 @@
     <section class="w-11/12 mx-auto py-5">
       <h3 class="text-center text-[32px] font-bold#">Choose Your Trees</h3>
 
-      <section class="grid grid-cols-5 call-btn">
+      <section class="md:grid grid-cols-5 call-btn">
         <!-- model button -->
         <!-- Open the modal using ID.showModal() method -->
         <!-- <button class="btn" onclick="my_modal_5.showModal()">open modal</button> -->
@@ -68,7 +68,7 @@
           </div>
         </section>
         <!-- Loading and cart container -->
-        <section id="option-contain" class="grid col-span-3 grid-cols-3">
+        <section id="option-contain" class="md:grid col-span-3 grid-cols-3">
           <div>
 
           </div>
@@ -81,7 +81,7 @@
     </section>
     <section class="w-8/12 mx-auto py-15">
       <h3 class="text-center text-[32px] font-bold">About the Campaign</h3>
-      <div class="flex justify-between items-center gap-10 py-4">
+      <div class="md:flex justify-between items-center gap-10 py-4">
         <img src="assets/about.png" alt="">
         <div>
           <p class="text-left">Green Earth is a global tree plantation initiative dedicated to fighting climate change.
@@ -101,7 +101,7 @@
 
     <section class="bg-[#CFF0DC] py-10">
       <h3 class="text-center text-[32px] font-bold">Our Impact</h3>
-      <div class="grid grid-cols-3 justify-items-center items-center w-11/12 mx-auto gap-5">
+      <div class="md:grid grid-cols-3 justify-items-center items-center w-11/12 mx-auto gap-5">
         <div class="bg-white rounded-2xl shadow text-center w-[415px] h-[155px]">
           <h3 class="text-[32px] font-bold">500K+</h3>
           <p>Trees Planted </p>
