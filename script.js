@@ -6,10 +6,20 @@ const loadPages = () => {
     .then((data) => displayAllTree(data.categories));
 };
 
+const manageSpinner = (status) => {
+  if (status == true) {
+    document.getElementById("spinner").classList.remove("hidden");
+    document.getElementById("option-container").classList.add("hidden");
+  } else {
+    document.getElementById("option-contain").classList.remove("hidden");
+    document.getElementById("spinner").classList.add("hidden");
+  }
+};
 
 const removeAll = () => {
   const allBtn = document.querySelectorAll(".all-btn");
-  console.log("allBtn");
+  // console.log("allBtn");
+   allBtn.forEach(btn => btn.classList.remove("active"));
 };
 
 const removeActive = () => {
@@ -18,11 +28,38 @@ const removeActive = () => {
   treeBtn.forEach(btn => btn.classList.remove("active"));
 };
 
+const treeAllDetail = async (id) => {
+  const detail = `https://openapi.programming-hero.com/api/plant/${id}`;
+  // console.log(detail);
+  const res = await fetch(detail);
+  const details = await res.json();
+  allDeteils(details.plants);
+};
 
+const allDeteils = (tree) => {
+  console.log(tree);
+  const detailBox = document.getElementById("deteils-container");
+  detailBox.innerHTML = ` 
+                <h2 class="card-title">${tree.name}</h2>
+                <figure class="px-5 pt-5">
+                  <img src="${tree.image}" class="rounded-xl" />
+                </figure>
+                <div class="card-body">
+                  <p>Categorie : ${tree.category}</p>
+                  <p>Price : ${tree.price}</p>
+                  <p class="py-1">Description : ${tree.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+           `;
+  document.getElementById("tree-modal").showModal();
+
+};
 
 const treeBox = (id) => {
   //console.log(id);
-
+    manageSpinner(true);
   const url = `https://openapi.programming-hero.com/api/category/${id}`;
   console.log(url);
   fetch(url)
@@ -32,8 +69,10 @@ const treeBox = (id) => {
       const highlight = document.getElementById(`btn-highlight-${id}`);
       //console.log(highlight);
       highlight.classList.add("active")
-       displayTreeBox(data.plants)
+      displayTreeBox(data.plants);
+    
     });
+  
 };
 
 const allPlantTree = (id) => {
@@ -49,38 +88,6 @@ const allPlantTree = (id) => {
       displayPlantsTree(plant.plants)
     });  
 };
-
-/** const loadWordDetail = async(id) => {
-    const url = `https://openapi.programming-hero.com/api/word/${id}`;
-   
-   const res = await fetch(url);
-   const details = await res.json();
-   displayWordDeteals(details.data);
-} 
-
-const displayWordDeteals = (word) => {
-  console.log(word);
-  const detailsBox = document.getElementById("details-container");
-   detailsBox.innerHTML = `<div class="">
-            <h2 class="text-2xl font-bold">${word.word}(<i class="fa-solid fa-microphone"></i>:${word.pronuonciation})</h2>
-          </div>
-          <div class="">
-            <h2 class="font-bold">Meaning</h2>
-            <p class="">${word.meaning}</p>
-          </div>
-          <div class="">
-            <h2 class="font-bold">Example</h2>
-            <p class="">${word.sentence}</p>
-          </div>
-          <div class="">
-            <h2 class="font-bold">Synonym</h2>
-            <div class="">${createElements(word.synonyms)}</div>
-          </div>
-`;
-  document.getElementById("word_modal").showModal();
-}; */
-
-
 
 const displayPlantsTree = (alls) => {
   const allBtn = document.getElementById("option-contain");
@@ -116,11 +123,13 @@ allPlantTree();
 
 
 const displayTreeBox = (trees) => {
+ 
   const optionContain = document.getElementById("option-contain");
   optionContain.innerHTML = "";
   console.log(optionContain);
 
   trees.forEach((tree) => {
+      
     const allPlants = document.createElement("div");
     allPlants.innerHTML = `
     <div class="card bg-base-100  m-4 shadow-sm">
@@ -129,7 +138,7 @@ const displayTreeBox = (trees) => {
                   class="rounded-xl" />
               </figure>
               <div class="card-body">
-                <h2 onclick="treeInformation('${tree.id}')" class="card-title">${tree.name}</h2>
+                <h2 onclick="treeAllDetail(${tree.id})" class="card-title">${tree.name}</h2>
                 <p class="py-2">${tree.description}
                 </p>
                 <div class="flex gap-10">
@@ -142,7 +151,11 @@ const displayTreeBox = (trees) => {
               </div>
             </div>`;
     optionContain.append(allPlants);
+    
   });
+ manageSpinner(false);
+ 
+  
 };
 
 const displayAllTree = (trees) => {

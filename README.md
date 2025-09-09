@@ -120,7 +120,7 @@ Display in a 3-column card layout.
 
         - Add to Cart button
 
-4) Modal on Card Click ❌❌❌
+4) Modal on Card Click ✅✅✅
 Clicking a tree name on a card opens a modal with full tree details.
 
 

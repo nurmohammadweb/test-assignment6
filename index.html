@@ -45,7 +45,23 @@
       <h3 class="text-center text-[32px] font-bold#">Choose Your Trees</h3>
 
       <section class="grid grid-cols-5">
+        <!-- model button -->
+        <!-- Open the modal using ID.showModal() method -->
+        <!-- <button class="btn" onclick="my_modal_5.showModal()">open modal</button> -->
+        <dialog id="tree-modal" class="modal modal-bottom sm:modal-middle">
+          <div class="modal-box">
+            <div id="deteils-container">
 
+
+            </div>
+            <div class="modal-action">
+              <form method="dialog">
+                <!-- if there is a button in form, it will close the modal -->
+                <button class="btn">Close</button>
+              </form>
+            </div>
+          </div>
+        </dialog>
         <section class="col-span-1 p-0">
           <h3 class="font-bold text-[16px] text-center">Categories</h3>
           <div id="all-btn">
@@ -56,13 +72,18 @@
             <button id="all-highlights-${Plants.id}" onclick="allPlantTree('${Plants.id}')"
               class="hover:bg-green-600 w-full p-4 rounded-[4px] all-btn">All Plants</button>
           </div>
+
           <div id="option-container" class="py-0">
 
           </div>
         </section>
-
+        <!-- Loading and cart container -->
         <section id="option-contain" class="grid col-span-3 grid-cols-3">
 
+          <section id="spinner" class="flex justify-center items-center hidden">
+            <span class="loading loading-bars loading-xl"></span>
+
+          </section>
         </section>
 
         <section id="cart-container" class="col-span-1 bg-white mx-2 rounded">
