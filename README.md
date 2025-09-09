@@ -105,7 +105,7 @@ On clicking a category: load trees of that category.
 
 Display in a 3-column card layout.
 
-3) Card Contents ❌❌❌
+3) Card Contents ✅✅✅
  Each card includes:
 
         - Image

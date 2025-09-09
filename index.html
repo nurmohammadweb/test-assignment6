@@ -7,6 +7,7 @@
   <title>Assignment Six</title>
   <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -45,8 +46,16 @@
 
       <section class="grid grid-cols-5">
 
-        <section class="col-span-1 p-4">
+        <section class="col-span-1 p-0">
           <h3 class="font-bold text-[16px] text-center">Categories</h3>
+          <div id="all-btn">
+
+            <!-- 1.problem why console result  -->
+            <!-- 2.problem active class on korle pore remove korte parinah -->
+
+            <button id="all-highlights-${Plants.id}" onclick="allPlantTree('${Plants.id}')"
+              class="hover:bg-green-600 w-full p-4 rounded-[4px] all-btn">All Plants</button>
+          </div>
           <div id="option-container" class="py-0">
 
           </div>
